@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+</head>
+<body>
+
+    <h1>Add Student</h1>
+
+    <form method="POST">
+
+        <label>Roll Number</label><br>
+        <input type="text" name="roll_no" required>
+        <br><br>
+
+        <label>Name</label><br>
+        <input type="text" name="name" required>
+        <br><br>
+
+        <label>Email</label><br>
+        <input type="email" name="email" required>
+        <br><br>
+
+        <label>Phone</label><br>
+        <input
+            type="tel"
+            name="phone"
+            pattern="[0-9]{10}"
+            maxlength="10"
+            required
+        >
+        <br><br>
+
+        <label>Course</label><br>
+        <input type="text" name="course">
+        <br><br>
+
+        <label>Year</label><br>
+        <input type="text" name="year">
+        <br><br>
+
+        <label>Address</label><br>
+        <textarea name="address"></textarea>
+        <br><br>
+
+        <button type="submit">
+            Save Student
+        </button>
+
+    </form>
+
+</body>
+</html>

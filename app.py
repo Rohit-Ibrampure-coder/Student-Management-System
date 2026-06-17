@@ -8,6 +8,7 @@ from routes.auth import auth
 from flask_login import login_required, current_user
 from flask import render_template
 from flask_login import current_user
+from routes.student import student
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -42,6 +43,6 @@ def test():
     return str(current_user.is_authenticated)
 
 app.register_blueprint(auth)
-
+app.register_blueprint(student)
 if __name__ == "__main__":
     app.run(debug=True)
