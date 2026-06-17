@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Records</title>
+</head>
+<body>
+
+    <h1>Attendance Records</h1>
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search Student Name"
+            value="{{ search if search else '' }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/attendance-summary">
+        Attendance Summary
+    </a>
+
+    <br><br>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>ID</th>
+            <th>Student Name</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% if records %}
+
+            {% for record in records %}
+
+            <tr>
+                <td>{{ record.id }}</td>
+                <td>{{ record.student_name }}</td>
+                <td>{{ record.date }}</td>
+                <td>{{ record.status }}</td>
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+                <td colspan="4">
+
+                    {% if search %}
+                        No attendance record found for "{{ search }}"
+                    {% else %}
+                        No attendance records found.
+                    {% endif %}
+
+                </td>
+            </tr>
+
+        {% endif %}
+
+    </table>
+
+</body>
+</html>

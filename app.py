@@ -9,6 +9,7 @@ from flask_login import login_required, current_user
 from flask import render_template
 from flask_login import current_user
 from routes.student import student
+from routes.attendance import attendance
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -44,5 +45,6 @@ def test():
 
 app.register_blueprint(auth)
 app.register_blueprint(student)
+app.register_blueprint(attendance)
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Summary</title>
+</head>
+<body>
+
+    <h1>Attendance Summary</h1>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Total Classes</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Attendance %</th>
+        </tr>
+
+        {% for row in summary_data %}
+
+        <tr>
+            <td>{{ row.roll_no }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.total }}</td>
+            <td>{{ row.present }}</td>
+            <td>{{ row.absent }}</td>
+            <td>{{ row.percentage }}%</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
