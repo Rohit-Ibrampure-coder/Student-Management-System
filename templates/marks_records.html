@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Marks Records</title>
+</head>
+
+<body>
+
+    <h1>Marks Records</h1>
+    <a href="/topper-list">
+        View Topper List
+    </a>
+
+    <br><br>
+    <form method="GET">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search Student Name"
+            value="{{ search if search else '' }}"
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+    <br>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>ID</th>
+            <th>Student Name</th>
+            <th>Subject</th>
+            <th>Obtained</th>
+            <th>Total</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+
+        {% if marks %}
+
+            {% for mark in marks %}
+
+            <tr>
+                <td>{{ mark.id }}</td>
+                <td>{{ mark.student_name }}</td>
+                <td>{{ mark.subject }}</td>
+                <td>{{ mark.obtained_marks }}</td>
+                <td>{{ mark.total_marks }}</td>
+
+                <td>
+                    <a href="/edit-marks/{{ mark.id }}">
+                        Edit
+                    </a>
+                </td>
+
+                <td>
+                    <a href="/delete-marks/{{ mark.id }}"
+                       onclick="return confirm('Delete this marks record?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+                <td colspan="7">
+
+                    {% if search %}
+                        No marks found for "{{ search }}"
+                    {% else %}
+                        No records found.
+                    {% endif %}
+
+                </td>
+            </tr>
+
+        {% endif %}
+
+    </table>
+
+</body>
+
+</html>

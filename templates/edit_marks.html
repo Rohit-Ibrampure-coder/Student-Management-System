@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Marks</title>
+</head>
+<body>
+
+    <h1>Edit Marks</h1>
+
+    <form method="POST">
+
+        <label>Subject</label><br>
+        <input type="text"
+               value="{{ mark.subject }}"
+               readonly>
+
+        <br><br>
+
+        <label>Obtained Marks</label><br>
+        <input type="number"
+               name="obtained_marks"
+               value="{{ mark.obtained_marks }}"
+               required>
+
+        <br><br>
+
+        <label>Total Marks</label><br>
+        <input type="number"
+               name="total_marks"
+               value="{{ mark.total_marks }}"
+               required>
+
+        <br><br>
+
+        <button type="submit">
+            Update Marks
+        </button>
+
+    </form>
+
+</body>
+</html>

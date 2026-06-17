@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Card</title>
+</head>
+<body>
+
+    <h1>Student Report Card</h1>
+
+    <h2>{{ student.name }}</h2>
+
+    <p>
+        Roll Number:
+        {{ student.roll_no }}
+    </p>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Subject</th>
+            <th>Marks</th>
+        </tr>
+
+        {% for mark in marks_data %}
+
+        <tr>
+            <td>{{ mark.subject }}</td>
+            <td>{{ mark.obtained_marks }}/{{ mark.total_marks }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <h3>
+        Total Obtained Marks:
+        {{ total_obtained }}
+    </h3>
+
+    <h3>
+        Total Marks:
+        {{ total_possible }}
+    </h3>
+
+    <h3>
+        Percentage:
+        {{ percentage }}%
+    </h3>
+
+    <h3>
+        Grade:
+        {{ grade }}
+    </h3>
+
+</body>
+</html>

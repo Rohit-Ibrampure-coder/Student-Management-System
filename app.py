@@ -10,6 +10,7 @@ from flask import render_template
 from flask_login import current_user
 from routes.student import student
 from routes.attendance import attendance
+from routes.marks import marks
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -46,5 +47,6 @@ def test():
 app.register_blueprint(auth)
 app.register_blueprint(student)
 app.register_blueprint(attendance)
+app.register_blueprint(marks)
 if __name__ == "__main__":
     app.run(debug=True)

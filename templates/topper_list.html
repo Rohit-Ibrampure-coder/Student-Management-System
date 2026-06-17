@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Topper List</title>
+</head>
+<body>
+
+    <h1>Topper List</h1>
+    <a href="/marks-dashboard">
+        Marks Dashboard
+    </a>
+
+    <br><br>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Rank</th>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Percentage</th>
+        </tr>
+
+        {% for student in topper_data %}
+
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ student.roll_no }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.percentage }}%</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
