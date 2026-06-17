@@ -5,6 +5,9 @@ from flask_login import LoginManager
 from extensions import db
 from models.user import User
 from routes.auth import auth
+from flask_login import login_required, current_user
+from flask import render_template
+from flask_login import current_user
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -14,7 +17,7 @@ login_manager = LoginManager()
 
 login_manager.init_app(app)
 
-login_manager.login_view = "login"
+login_manager.login_view = "auth.login"
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -23,6 +26,20 @@ def load_user(user_id):
 @app.route("/")
 def home():
     return "Student Management System"
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template(
+        "dashboard.html",
+        user=current_user
+    )
+
+from flask_login import current_user
+
+@app.route("/test")
+def test():
+    return str(current_user.is_authenticated)
 
 app.register_blueprint(auth)
 
