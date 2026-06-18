@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Marks</title>
+</head>
+<body>
+
+    <h1>My Marks</h1>
+
+    <h3>Name: {{ student.name }}</h3>
+
+    <h3>Roll No: {{ student.roll_no }}</h3>
+
+    <hr>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Subject</th>
+            <th>Obtained Marks</th>
+            <th>Total Marks</th>
+        </tr>
+
+        {% if marks_data %}
+
+            {% for mark in marks_data %}
+
+            <tr>
+                <td>{{ mark.subject }}</td>
+                <td>{{ mark.obtained_marks }}</td>
+                <td>{{ mark.total_marks }}</td>
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+                <td colspan="3">
+                    No marks found.
+                </td>
+            </tr>
+
+        {% endif %}
+
+    </table>
+
+</body>
+</html>

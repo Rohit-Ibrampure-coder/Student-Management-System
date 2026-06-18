@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Report Card</title>
+</head>
+<body>
+
+    <h1>My Report Card</h1>
+
+    <h3>Name: {{ student.name }}</h3>
+
+    <h3>Roll No: {{ student.roll_no }}</h3>
+
+    <hr>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Subject</th>
+            <th>Obtained</th>
+            <th>Total</th>
+        </tr>
+
+        {% for mark in marks_data %}
+
+        <tr>
+            <td>{{ mark.subject }}</td>
+            <td>{{ mark.obtained_marks }}</td>
+            <td>{{ mark.total_marks }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <h3>Total Obtained: {{ total_obtained }}</h3>
+
+    <h3>Total Marks: {{ total_maximum }}</h3>
+
+    <h3>Percentage: {{ percentage }}%</h3>
+
+    <h3>Grade: {{ grade }}</h3>
+
+</body>
+</html>

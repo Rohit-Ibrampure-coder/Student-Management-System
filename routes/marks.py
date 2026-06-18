@@ -4,6 +4,11 @@ from models.marks import Marks
 from flask import redirect, url_for
 from extensions import db
 from flask_login import current_user, login_required
+from flask_login import (
+    login_required,
+    current_user
+)
+from models.student import Student
 
 marks = Blueprint(
     "marks",
@@ -326,4 +331,93 @@ def marks_dashboard():
             highest_percentage,
             2
         )
+    )
+
+@marks.route("/my-marks")
+@login_required
+def my_marks():
+
+    if current_user.role not in [
+        "Admin",
+        "Student"
+    ]:
+        return "Access Denied"
+
+    student = Student.query.filter_by(
+        email=current_user.email
+    ).first()
+
+    if not student:
+        return "Student record not found!"
+
+    marks_data = Marks.query.filter_by(
+        student_id=student.id
+    ).all()
+
+    return render_template(
+        "my_marks.html",
+        student=student,
+        marks_data=marks_data
+    )
+
+@marks.route("/my-report-card")
+@login_required
+def my_report_card():
+
+    if current_user.role not in [
+        "Admin",
+        "Student"
+    ]:
+        return "Access Denied"
+
+    student = Student.query.filter_by(
+        email=current_user.email
+    ).first()
+
+    if not student:
+        return "Student record not found!"
+
+    marks_data = Marks.query.filter_by(
+        student_id=student.id
+    ).all()
+
+    total_obtained = 0
+    total_maximum = 0
+
+    for mark in marks_data:
+
+        total_obtained += mark.obtained_marks
+        total_maximum += mark.total_marks
+
+    if total_maximum > 0:
+
+        percentage = (
+            total_obtained / total_maximum
+        ) * 100
+
+    else:
+
+        percentage = 0
+
+    if percentage >= 90:
+        grade = "A+"
+    elif percentage >= 80:
+        grade = "A"
+    elif percentage >= 70:
+        grade = "B"
+    elif percentage >= 60:
+        grade = "C"
+    elif percentage >= 50:
+        grade = "D"
+    else:
+        grade = "F"
+
+    return render_template(
+        "my_report_card.html",
+        student=student,
+        marks_data=marks_data,
+        total_obtained=total_obtained,
+        total_maximum=total_maximum,
+        percentage=round(percentage, 2),
+        grade=grade
     )
