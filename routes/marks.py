@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request
-
 from models.student import Student
 from models.marks import Marks
 from flask import redirect, url_for
 from extensions import db
+from flask_login import current_user, login_required
 
 marks = Blueprint(
     "marks",
@@ -14,7 +14,11 @@ marks = Blueprint(
     "/marks",
     methods=["GET", "POST"]
 )
+@login_required
 def marks_page():
+
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
 
     if request.method == "POST":
 
@@ -69,6 +73,7 @@ def marks_page():
     )
 
 @marks.route("/marks-records")
+@login_required
 def marks_records():
 
     search = request.args.get("search")
@@ -90,7 +95,11 @@ def marks_records():
     )
 
 @marks.route("/report-card/<int:student_id>")
+@login_required
 def report_card(student_id):
+    
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
 
     student = Student.query.get_or_404(student_id)
 
@@ -144,8 +153,11 @@ def report_card(student_id):
     methods=["GET", "POST"]
 )
 def edit_marks(id):
-
+    
     mark = Marks.query.get_or_404(id)
+
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
 
     if request.method == "POST":
 
@@ -174,8 +186,11 @@ def edit_marks(id):
 
 @marks.route("/delete-marks/<int:id>")
 def delete_marks(id):
-
+    
     mark = Marks.query.get_or_404(id)
+
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
 
     db.session.delete(mark)
 
@@ -186,7 +201,11 @@ def delete_marks(id):
     )
 
 @marks.route("/topper-list")
+@login_required
 def topper_list():
+    
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
 
     students = Student.query.all()
 
@@ -238,7 +257,11 @@ def topper_list():
     )
 
 @marks.route("/marks-dashboard")
+@login_required
 def marks_dashboard():
+
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
 
     total_students = Student.query.count()
 

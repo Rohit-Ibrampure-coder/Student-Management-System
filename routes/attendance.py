@@ -1,11 +1,9 @@
 from flask import Blueprint, render_template, request
-
 from models.student import Student
 from models.attendance import Attendance
-
 from extensions import db
-
 from datetime import datetime
+from flask_login import current_user, login_required
 
 attendance = Blueprint(
     "attendance",
@@ -16,7 +14,11 @@ attendance = Blueprint(
     "/attendance",
     methods=["GET", "POST"]
 )
+@login_required
 def attendance_page():
+
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
 
     if request.method == "POST":
 
@@ -59,8 +61,11 @@ def attendance_page():
     )
 
 @attendance.route("/attendance-records")
+@login_required
 def attendance_records():
-
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
+    
     search = request.args.get("search")
 
     if search:
@@ -80,7 +85,11 @@ def attendance_records():
     )
 
 @attendance.route("/attendance-summary")
+@login_required
 def attendance_summary():
+
+    if current_user.role != "Admin" and current_user.role != "Teacher":
+        return "Access Denied"
 
     students = Student.query.all()
 

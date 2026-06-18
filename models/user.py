@@ -19,5 +19,6 @@ class User(UserMixin, db.Model):
 
     role = db.Column(
         db.String(20),
+        nullable=False,
         default="student"
     )

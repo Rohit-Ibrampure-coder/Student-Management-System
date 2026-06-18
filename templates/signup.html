@@ -11,19 +11,58 @@
     <form method="POST">
 
         <label>Name</label><br>
-        <input type="text" name="name" required>
+        <input
+            type="text"
+            name="name"
+            required
+        >
         <br><br>
 
         <label>Email</label><br>
-        <input type="email" name="email" required>
+        <input
+            type="email"
+            name="email"
+            required
+        >
         <br><br>
 
         <label>Password</label><br>
-        <input type="password" name="password" required>
+        <input
+            type="password"
+            name="password"
+            required
+        >
         <br><br>
 
         <label>Confirm Password</label><br>
-        <input type="password" name="confirm_password" required>
+        <input
+            type="password"
+            name="confirm_password"
+            required
+        >
+        <br><br>
+
+        <label>Role</label><br>
+
+        <select
+            name="role"
+            required
+        >
+
+            <option value="">
+                Select Role
+            </option>
+
+            <option value="Teacher">
+                Teacher
+            </option>
+
+            <option value="Student">
+                Student
+            </option>
+
+        </select>
+
         <br><br>
 
         <button type="submit">

@@ -19,22 +19,27 @@ def signup():
         email = request.form.get("email")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
+        role = request.form.get("role")
 
         if password != confirm_password:
             return "Passwords do not match!"
 
-        # Check existing email
-        existing_user = User.query.filter_by(email=email).first()
+        existing_user = User.query.filter_by(
+            email=email
+        ).first()
 
         if existing_user:
             return "Email already registered!"
 
-        hashed_password = generate_password_hash(password)
+        hashed_password = generate_password_hash(
+            password
+        )
 
         new_user = User(
             name=name,
             email=email,
-            password=hashed_password
+            password=hashed_password,
+            role=role
         )
 
         db.session.add(new_user)
@@ -58,7 +63,23 @@ def login():
 
             login_user(user)
 
-            return redirect(url_for("dashboard"))
+            if user.role == "Admin":
+
+                return redirect(
+                    url_for("admin_dashboard")
+                )
+
+            elif user.role == "Teacher":
+
+                return redirect(
+                    url_for("teacher_dashboard")
+                )
+
+            else:
+
+                return redirect(
+                    url_for("student_dashboard")
+                )
 
         return "Invalid Email or Password!"
 

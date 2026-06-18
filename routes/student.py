@@ -4,6 +4,8 @@ from extensions import db
 from flask import render_template
 from sqlalchemy import or_
 from flask import redirect, url_for
+from flask_login import current_user
+from flask_login import login_required
 
 student = Blueprint(
     "student",
@@ -14,8 +16,11 @@ student = Blueprint(
     "/add-student",
     methods=["GET", "POST"]
 )
+@login_required
 def add_student():
-
+    if current_user.role != "Admin":
+        return "Access Denied"
+    
     if request.method == "POST":
 
         roll_no = request.form.get("roll_no")
@@ -94,9 +99,13 @@ def students():
     "/edit-student/<int:id>",
     methods=["GET", "POST"]
 )
+@login_required
 def edit_student(id):
 
     student = Student.query.get_or_404(id)
+    
+    if current_user.role != "Admin":
+        return "Access Denied"
 
     if request.method == "POST":
 
@@ -126,9 +135,13 @@ def edit_student(id):
     )
 
 @student.route("/delete-student/<int:id>")
+@login_required
 def delete_student(id):
 
     student = Student.query.get_or_404(id)
+
+    if current_user.role != "Admin":
+        return "Access Denied"
 
     db.session.delete(student)
 
