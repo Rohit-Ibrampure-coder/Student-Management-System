@@ -1,63 +1,139 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Mark Attendance</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
 </head>
-<body>
 
-    <h1>Mark Attendance</h1>
+<body class="bg-light">
 
-    <a href="/attendance-records">
-        View Attendance Records
-    </a>
+    <nav class="navbar navbar-dark bg-primary">
 
-    <br><br>
+        <div class="container">
 
-    <form method="POST">
+            <span class="navbar-brand">
+                Student Management System
+            </span>
 
-        <label>Student</label><br>
+            <a
+                href="/attendance-records"
+                class="btn btn-light"
+            >
+                Attendance Records
+            </a>
 
-        <select name="student_id" required>
+        </div>
 
-            {% for student in students %}
+    </nav>
 
-            <option value="{{ student.id }}">
-                {{ student.roll_no }} - {{ student.name }}
-            </option>
+    <div class="container mt-4">
 
-            {% endfor %}
+        <div class="row justify-content-center">
 
-        </select>
+            <div class="col-md-8">
 
-        <br><br>
+                <div class="card shadow">
 
-        <label>Date</label><br>
+                    <div class="card-header bg-success text-white">
 
-        <input type="date" name="date" required>
+                        <h3>
+                            Mark Attendance
+                        </h3>
 
-        <br><br>
+                    </div>
 
-        <label>Status</label><br>
+                    <div class="card-body">
 
-        <select name="status">
+                        <form method="POST">
 
-            <option value="Present">
-                Present
-            </option>
+                            <div class="mb-3">
 
-            <option value="Absent">
-                Absent
-            </option>
+                                <label class="form-label">
+                                    Student
+                                </label>
 
-        </select>
+                                <select
+                                    name="student_id"
+                                    class="form-select"
+                                    required
+                                >
 
-        <br><br>
+                                    {% for student in students %}
 
-        <button type="submit">
-            Save Attendance
-        </button>
+                                    <option value="{{ student.id }}">
+                                        {{ student.roll_no }} - {{ student.name }}
+                                    </option>
 
-    </form>
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="date"
+                                    class="form-control"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    Status
+                                </label>
+
+                                <select
+                                    name="status"
+                                    class="form-select"
+                                >
+
+                                    <option value="Present">
+                                        Present
+                                    </option>
+
+                                    <option value="Absent">
+                                        Absent
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="btn btn-success"
+                            >
+                                Save Attendance
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

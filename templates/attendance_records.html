@@ -1,74 +1,179 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Attendance Records</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
 </head>
-<body>
 
-    <h1>Attendance Records</h1>
+<body class="bg-light">
 
-    <form method="GET">
+    <nav class="navbar navbar-dark bg-primary">
 
-        <input
-            type="text"
-            name="search"
-            placeholder="Search Student Name"
-            value="{{ search if search else '' }}"
-        >
+        <div class="container">
 
-        <button type="submit">
-            Search
-        </button>
+            <span class="navbar-brand">
+                Student Management System
+            </span>
 
-    </form>
+            <a
+                href="/attendance"
+                class="btn btn-light"
+            >
+                Back
+            </a>
 
-    <br>
+        </div>
 
-    <a href="/attendance-summary">
-        Attendance Summary
-    </a>
+    </nav>
 
-    <br><br>
+    <div class="container mt-4">
 
-    <table border="1" cellpadding="10">
+        <h1>
+            Attendance Records
+        </h1>
 
-        <tr>
-            <th>ID</th>
-            <th>Student Name</th>
-            <th>Date</th>
-            <th>Status</th>
-        </tr>
+        <form method="GET">
 
-        {% if records %}
+            <div class="row">
 
-            {% for record in records %}
+                <div class="col-md-6">
 
-            <tr>
-                <td>{{ record.id }}</td>
-                <td>{{ record.student_name }}</td>
-                <td>{{ record.date }}</td>
-                <td>{{ record.status }}</td>
-            </tr>
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Search Student Name"
+                        value="{{ search if search else '' }}"
+                    >
 
-            {% endfor %}
+                </div>
 
-        {% else %}
+                <div class="col-md-2">
 
-            <tr>
-                <td colspan="4">
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Search
+                    </button>
 
-                    {% if search %}
-                        No attendance record found for "{{ search }}"
-                    {% else %}
-                        No attendance records found.
-                    {% endif %}
+                </div>
 
-                </td>
-            </tr>
+                <div class="col-md-4 text-end">
 
-        {% endif %}
+                    <a
+                        href="/attendance-summary"
+                        class="btn btn-success"
+                    >
+                        Attendance Summary
+                    </a>
 
-    </table>
+                </div>
+
+            </div>
+
+        </form>
+
+        <br>
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <table class="table table-striped table-bordered">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Student Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% if records %}
+
+                            {% for record in records %}
+
+                            <tr>
+
+                                <td>{{ record.id }}</td>
+
+                                <td>{{ record.student_name }}</td>
+
+                                <td>{{ record.date }}</td>
+
+                                <td>
+
+                                    {% if record.status == "Present" %}
+
+                                        <span class="badge bg-success">
+                                            Present
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="badge bg-danger">
+                                            Absent
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <tr>
+
+                                <td
+                                    colspan="4"
+                                    class="text-center"
+                                >
+
+                                    {% if search %}
+
+                                        No attendance record found for
+                                        "{{ search }}"
+
+                                    {% else %}
+
+                                        No attendance records found.
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                        {% endif %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

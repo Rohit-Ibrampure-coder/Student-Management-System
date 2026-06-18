@@ -1,31 +1,120 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Teacher Dashboard</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
 </head>
-<body>
 
-    <h1>Teacher Dashboard</h1>
+<body class="bg-light">
 
-    <h3>Welcome {{ user.name }}</h3>
+    <nav class="navbar navbar-dark bg-primary">
 
-    <hr>
+        <div class="container">
 
-    <a href="/attendance">
-        Attendance
-    </a>
+            <span class="navbar-brand">
+                👨‍🏫 Teacher Portal
+            </span>
 
-    <br><br>
+            <a
+                href="/logout"
+                class="btn btn-light"
+            >
+                Logout
+            </a>
 
-    <a href="/marks">
-        Marks
-    </a>
+        </div>
 
-    <br><br>
+    </nav>
 
-    <a href="/logout">
-        Logout
-    </a>
+    <div class="container mt-4">
+
+        <div class="card shadow">
+
+            <div class="card-body">
+
+                <h2>
+                    Welcome, {{ user.name }}
+                </h2>
+
+                <p>
+                    Manage attendance and student marks.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="row mt-4">
+
+            <div class="col-md-6">
+
+                <div class="card shadow text-center">
+
+                    <div class="card-body">
+
+                        <h1>📅</h1>
+
+                        <h4>
+                            Attendance Management
+                        </h4>
+
+                        <p>
+                            Mark attendance and view attendance records.
+                        </p>
+
+                        <a
+                            href="/attendance"
+                            class="btn btn-success"
+                        >
+                            Manage Attendance
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="card shadow text-center">
+
+                    <div class="card-body">
+
+                        <h1>📚</h1>
+
+                        <h4>
+                            Marks Management
+                        </h4>
+
+                        <p>
+                            Add, edit and manage student marks.
+                        </p>
+
+                        <a
+                            href="/marks"
+                            class="btn btn-primary"
+                        >
+                            Manage Marks
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>
