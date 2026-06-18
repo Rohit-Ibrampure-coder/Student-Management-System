@@ -1,9 +1,14 @@
 from flask import Blueprint, render_template, request
+from models import student
 from models.student import Student
 from models.attendance import Attendance
 from extensions import db
 from datetime import datetime
 from flask_login import current_user, login_required
+
+from routes import student
+
+print("ATTENDANCE FILE LOADED")
 
 attendance = Blueprint(
     "attendance",
@@ -144,3 +149,66 @@ def attendance_summary():
         "attendance_summary.html",
         summary_data=summary_data
     )
+
+
+@attendance.route("/my-attendance")
+@login_required
+def my_attendance():
+    return """
+    Student Route Working
+    """
+    
+    # if current_user.role not in [
+    #     "Admin",
+    #     "Student"
+    # ]:
+    #     return "Access Denied"
+
+    # student = Student.query.filter_by(
+    #     email=current_user.email
+    # ).first()
+
+    # if not student:
+    #     return "Student record not found!"
+
+    # total_classes = Attendance.query.filter_by(
+    #     student_id=student.id
+    # ).count()
+
+    # present_count = Attendance.query.filter_by(
+    #     student_id=student.id,
+    #     status="Present"
+    # ).count()
+
+    # absent_count = Attendance.query.filter_by(
+    #     student_id=student.id,
+    #     status="Absent"
+    # ).count()
+
+    # if total_classes > 0:
+
+    #     percentage = (
+    #         present_count / total_classes
+    #     ) * 100
+
+    # else:
+
+    #     percentage = 0
+
+    # print("Student:", student.name)
+    # print("Student ID:", student.id)
+    # print("Total Classes:", total_classes)
+    # print("Present:", present_count)
+    # print("Absent:", absent_count)
+    # print("Percentage:", percentage)
+    # return render_template(
+    #     "my_attendance.html",
+    #     student=student,
+    #     total_classes=total_classes,
+    #     present_count=present_count,
+    #     absent_count=absent_count,
+    #     percentage=round(
+    #         percentage,
+    #         2
+    #     )
+    # )

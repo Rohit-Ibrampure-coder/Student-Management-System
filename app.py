@@ -120,6 +120,16 @@ def test():
         current_user.is_authenticated
     )
 
+@app.route("/debug-user")
+@login_required
+def debug_user():
+
+    return f"""
+    Name: {current_user.name}<br>
+    Email: {current_user.email}<br>
+    Role: {current_user.role}
+    """
+
 
 app.register_blueprint(auth)
 app.register_blueprint(student)
