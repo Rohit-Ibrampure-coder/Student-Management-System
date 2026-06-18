@@ -1,14 +1,9 @@
 from flask import Blueprint, render_template, request
 from models.student import Student
 from models.marks import Marks
-from flask import redirect, url_for
+from flask import redirect, url_for,flash
 from extensions import db
 from flask_login import current_user, login_required
-from flask_login import (
-    login_required,
-    current_user
-)
-from models.student import Student
 
 marks = Blueprint(
     "marks",
@@ -68,13 +63,26 @@ def marks_page():
 
         db.session.commit()
 
-        return "Marks Saved Successfully!"
+        flash(
+            "Marks Saved Successfully!",
+            "success"
+        )
+
+        return redirect(
+            url_for("marks.marks_page")
+        )
 
     students = Student.query.all()
 
+    dashboard_link = "/teacher-dashboard"
+
+    if current_user.role == "Admin":
+        dashboard_link = "/admin-dashboard"
+
     return render_template(
         "add_marks.html",
-        students=students
+        students=students,
+        dashboard_link=dashboard_link
     )
 
 @marks.route("/marks-records")
@@ -157,6 +165,7 @@ def report_card(student_id):
     "/edit-marks/<int:id>",
     methods=["GET", "POST"]
 )
+@login_required
 def edit_marks(id):
     
     mark = Marks.query.get_or_404(id)
@@ -182,7 +191,14 @@ def edit_marks(id):
 
         db.session.commit()
 
-        return "Marks Updated Successfully!"
+        flash(
+            "Marks Updated Successfully!",
+            "success"
+        )
+
+        return redirect(
+            url_for("marks.marks_records")
+        )
 
     return render_template(
         "edit_marks.html",
@@ -190,6 +206,7 @@ def edit_marks(id):
     )
 
 @marks.route("/delete-marks/<int:id>")
+@login_required
 def delete_marks(id):
     
     mark = Marks.query.get_or_404(id)
@@ -321,6 +338,11 @@ def marks_dashboard():
 
         average_percentage = 0
 
+    dashboard_link = "/teacher-dashboard"
+
+    if current_user.role == "Admin":
+        dashboard_link = "/admin-dashboard"
+
     return render_template(
         "marks_dashboard.html",
         total_students=total_students,
@@ -328,10 +350,12 @@ def marks_dashboard():
         average_percentage=average_percentage,
         topper_name=topper_name,
         highest_percentage=round(
-            highest_percentage,
-            2
-        )
-    )
+        highest_percentage,
+        2
+    ),
+    dashboard_link=dashboard_link
+)
+
 
 @marks.route("/my-marks")
 @login_required

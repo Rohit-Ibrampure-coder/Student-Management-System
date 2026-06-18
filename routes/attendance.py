@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash
 from models import student
 from models.student import Student
 from models.attendance import Attendance
@@ -56,15 +56,27 @@ def attendance_page():
         db.session.add(new_attendance)
         db.session.commit()
 
-        return "Attendance Saved Successfully!"
+        flash(
+            "Attendance Saved Successfully!",
+            "success"
+        )
+
+        return redirect(
+            url_for("attendance.attendance_page")
+        )
 
     students = Student.query.all()
 
+    dashboard_link = "/teacher-dashboard"
+
+    if current_user.role == "Admin":
+        dashboard_link = "/admin-dashboard"
+
     return render_template(
         "attendance.html",
-        students=students
+        students=students,
+        dashboard_link=dashboard_link
     )
-
 @attendance.route("/attendance-records")
 @login_required
 def attendance_records():
@@ -83,11 +95,18 @@ def attendance_records():
 
         records = Attendance.query.all()
 
+    dashboard_link = "/teacher-dashboard"
+
+    if current_user.role == "Admin":
+        dashboard_link = "/admin-dashboard"
+
     return render_template(
         "attendance_records.html",
         records=records,
-        search=search
-    )
+        search=search,
+        dashboard_link=dashboard_link
+    )   
+    
 
 @attendance.route("/attendance-summary")
 @login_required
@@ -145,9 +164,15 @@ def attendance_summary():
 
         })
 
+    dashboard_link = "/teacher-dashboard"
+
+    if current_user.role == "Admin":
+        dashboard_link = "/admin-dashboard"
+
     return render_template(
         "attendance_summary.html",
-        summary_data=summary_data
+        summary_data=summary_data,
+        dashboard_link=dashboard_link
     )
 
 

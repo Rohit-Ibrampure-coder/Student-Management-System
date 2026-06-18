@@ -14,7 +14,7 @@
 
 <body class="bg-light">
 
-    <nav class="navbar navbar-dark bg-primary">
+   <nav class="navbar navbar-dark bg-primary">
 
         <div class="container">
 
@@ -22,12 +22,30 @@
                 Student Management System
             </span>
 
-            <a
-                href="/attendance"
-                class="btn btn-light"
-            >
-                Back
-            </a>
+            <div>
+
+                <a
+                    href="{{ dashboard_link }}"
+                    class="btn btn-light"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="/attendance"
+                    class="btn btn-warning"
+                >
+                    Attendance
+                </a>
+
+                <a
+                    href="/attendance-summary"
+                    class="btn btn-success"
+                >
+                    Summary
+                </a>
+
+            </div>
 
         </div>
 

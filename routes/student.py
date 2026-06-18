@@ -3,7 +3,7 @@ from models.student import Student
 from extensions import db
 from flask import render_template
 from sqlalchemy import or_
-from flask import redirect, url_for
+from flask import redirect, url_for, flash
 from flask_login import current_user
 from flask_login import login_required
 
@@ -64,7 +64,14 @@ def add_student():
         db.session.add(new_student)
         db.session.commit()
 
-        return "Student Saved Successfully!"
+        flash(
+            "Student Saved Successfully!",
+            "success"
+        )
+
+        return redirect(
+            url_for("student.students")
+        )
 
     return render_template("add_student.html")
 

@@ -22,13 +22,23 @@
                 Student Management System
             </span>
 
-            <a
-                href="/marks-records"
-                class="btn btn-light"
-            >
-                View Marks Records
-            </a>
+            <div>
 
+                <a
+                    href="{{ dashboard_link }}"
+                    class="btn btn-light"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="/marks-records"
+                    class="btn btn-success"
+                >
+                    Marks Records
+                </a>
+
+            </div>
         </div>
 
     </nav>
@@ -123,7 +133,6 @@
                                     type="number"
                                     name="obtained_marks"
                                     min="0"
-                                    max="1000"
                                     class="form-control"
                                     required
                                 >
