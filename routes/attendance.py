@@ -1,12 +1,23 @@
-from flask import Blueprint, render_template, request, flash
-from models import student
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    flash,
+    redirect,
+    url_for
+)
+
 from models.student import Student
 from models.attendance import Attendance
-from extensions import db
-from datetime import datetime
-from flask_login import current_user, login_required
 
-from routes import student
+from extensions import db
+
+from datetime import datetime
+
+from flask_login import (
+    login_required,
+    current_user
+)
 
 print("ATTENDANCE FILE LOADED")
 
@@ -15,6 +26,7 @@ attendance = Blueprint(
     __name__
 )
 
+
 @attendance.route(
     "/attendance",
     methods=["GET", "POST"]
@@ -22,7 +34,10 @@ attendance = Blueprint(
 @login_required
 def attendance_page():
 
-    if current_user.role != "Admin" and current_user.role != "Teacher":
+    if current_user.role not in [
+        "Admin",
+        "Teacher"
+    ]:
         return "Access Denied"
 
     if request.method == "POST":
@@ -44,8 +59,16 @@ def attendance_page():
         ).first()
 
         if existing_attendance:
-            return "Attendance already marked for this student on this date!"
-        
+
+            flash(
+                "Attendance already marked for this student on this date!",
+                "danger"
+            )
+
+            return redirect(
+                url_for("attendance.attendance_page")
+            )
+
         new_attendance = Attendance(
             student_id=student.id,
             student_name=student.name,
@@ -77,12 +100,18 @@ def attendance_page():
         students=students,
         dashboard_link=dashboard_link
     )
+
+
 @attendance.route("/attendance-records")
 @login_required
 def attendance_records():
-    if current_user.role != "Admin" and current_user.role != "Teacher":
+
+    if current_user.role not in [
+        "Admin",
+        "Teacher"
+    ]:
         return "Access Denied"
-    
+
     search = request.args.get("search")
 
     if search:
@@ -105,14 +134,17 @@ def attendance_records():
         records=records,
         search=search,
         dashboard_link=dashboard_link
-    )   
-    
+    )
+
 
 @attendance.route("/attendance-summary")
 @login_required
 def attendance_summary():
 
-    if current_user.role != "Admin" and current_user.role != "Teacher":
+    if current_user.role not in [
+        "Admin",
+        "Teacher"
+    ]:
         return "Access Denied"
 
     students = Student.query.all()
@@ -148,15 +180,10 @@ def attendance_summary():
         summary_data.append({
 
             "name": student.name,
-
             "roll_no": student.roll_no,
-
             "total": total_classes,
-
             "present": present_count,
-
             "absent": absent_count,
-
             "percentage": round(
                 percentage,
                 2
