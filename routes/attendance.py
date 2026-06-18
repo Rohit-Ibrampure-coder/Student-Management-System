@@ -154,61 +154,52 @@ def attendance_summary():
 @attendance.route("/my-attendance")
 @login_required
 def my_attendance():
-    return """
-    Student Route Working
-    """
-    
-    # if current_user.role not in [
-    #     "Admin",
-    #     "Student"
-    # ]:
-    #     return "Access Denied"
 
-    # student = Student.query.filter_by(
-    #     email=current_user.email
-    # ).first()
+    if current_user.role not in [
+        "Admin",
+        "Student"
+    ]:
+        return "Access Denied"
 
-    # if not student:
-    #     return "Student record not found!"
+    student = Student.query.filter_by(
+        email=current_user.email
+    ).first()
 
-    # total_classes = Attendance.query.filter_by(
-    #     student_id=student.id
-    # ).count()
+    if not student:
+        return "Student record not found!"
 
-    # present_count = Attendance.query.filter_by(
-    #     student_id=student.id,
-    #     status="Present"
-    # ).count()
+    total_classes = Attendance.query.filter_by(
+        student_id=student.id
+    ).count()
 
-    # absent_count = Attendance.query.filter_by(
-    #     student_id=student.id,
-    #     status="Absent"
-    # ).count()
+    present_count = Attendance.query.filter_by(
+        student_id=student.id,
+        status="Present"
+    ).count()
 
-    # if total_classes > 0:
+    absent_count = Attendance.query.filter_by(
+        student_id=student.id,
+        status="Absent"
+    ).count()
 
-    #     percentage = (
-    #         present_count / total_classes
-    #     ) * 100
+    if total_classes > 0:
 
-    # else:
+        percentage = (
+            present_count / total_classes
+        ) * 100
 
-    #     percentage = 0
+    else:
 
-    # print("Student:", student.name)
-    # print("Student ID:", student.id)
-    # print("Total Classes:", total_classes)
-    # print("Present:", present_count)
-    # print("Absent:", absent_count)
-    # print("Percentage:", percentage)
-    # return render_template(
-    #     "my_attendance.html",
-    #     student=student,
-    #     total_classes=total_classes,
-    #     present_count=present_count,
-    #     absent_count=absent_count,
-    #     percentage=round(
-    #         percentage,
-    #         2
-    #     )
-    # )
+        percentage = 0
+
+    return render_template(
+        "my_attendance.html",
+        student=student,
+        total_classes=total_classes,
+        present_count=present_count,
+        absent_count=absent_count,
+        percentage=round(
+            percentage,
+            2
+        )
+    )

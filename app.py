@@ -77,41 +77,6 @@ def student_dashboard():
         user=current_user
     )
 
-@app.route("/my-attendance")
-@login_required
-def my_attendance():
-
-    if current_user.role not in [
-        "Admin",
-        "Student"
-    ]:
-        return "Access Denied"
-
-    return "My Attendance"
-
-@app.route("/my-marks")
-@login_required
-def my_marks():
-
-    if current_user.role not in [
-        "Admin",
-        "Student"
-    ]:
-        return "Access Denied"
-
-    return "My Marks"
-
-@app.route("/my-report-card")
-@login_required
-def my_report_card():
-
-    if current_user.role not in [
-        "Admin",
-        "Student"
-    ]:
-        return "Access Denied"
-
-    return "My Report Card"
 
 @app.route("/test")
 def test():
@@ -120,15 +85,16 @@ def test():
         current_user.is_authenticated
     )
 
-@app.route("/debug-user")
-@login_required
-def debug_user():
 
-    return f"""
-    Name: {current_user.name}<br>
-    Email: {current_user.email}<br>
-    Role: {current_user.role}
-    """
+# @app.route("/debug-user")
+# @login_required
+# def debug_user():
+
+#     return f"""
+#     Name: {current_user.name}<br>
+#     Email: {current_user.email}<br>
+#     Role: {current_user.role}
+#     """
 
 
 app.register_blueprint(auth)
