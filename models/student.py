@@ -36,6 +36,10 @@ class Student(db.Model):
         db.String(20)
     )
 
+    semester = db.Column(
+        db.String(20)
+    )
+    
     address = db.Column(
         db.Text
     )

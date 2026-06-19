@@ -29,6 +29,7 @@ def add_student():
         phone = request.form.get("phone")
         course = request.form.get("course")
         year = request.form.get("year")
+        semester = request.form.get("semester")
         address = request.form.get("address")
 
         if not phone.isdigit():
@@ -58,6 +59,7 @@ def add_student():
             phone=phone,
             course=course,
             year=year,
+            semester = semester,
             address=address
         )
 
@@ -122,6 +124,7 @@ def edit_student(id):
         student.phone = request.form.get("phone")
         student.course = request.form.get("course")
         student.year = request.form.get("year")
+        student.semester = request.form.get("semester")
         student.address = request.form.get("address")
 
         phone = request.form.get("phone")
