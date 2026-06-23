@@ -1,4 +1,5 @@
 from extensions import db
+from models.subject import Subject
 
 class Marks(db.Model):
 

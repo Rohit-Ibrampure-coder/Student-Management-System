@@ -9,11 +9,11 @@ from config import Config
 from extensions import db
 
 from models.user import User
-
 from routes.auth import auth
 from routes.student import student
 from routes.attendance import attendance
 from routes.marks import marks
+from routes.subject import subject
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -91,6 +91,7 @@ app.register_blueprint(auth)
 app.register_blueprint(student)
 app.register_blueprint(attendance)
 app.register_blueprint(marks)
+app.register_blueprint(subject)
 
 
 if __name__ == "__main__":

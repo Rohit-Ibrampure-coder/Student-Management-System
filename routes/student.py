@@ -137,7 +137,14 @@ def edit_student(id):
 
         db.session.commit()
 
-        return "Student Updated Successfully!"
+        flash(
+            "Student Updated Successfully!",
+            "success"
+        )
+
+        return redirect(
+            url_for("student.students")
+        )
 
     return render_template(
         "edit_student.html",
@@ -156,5 +163,8 @@ def delete_student(id):
     db.session.delete(student)
 
     db.session.commit()
-
+    flash(
+            "Student Delete Successfully!",
+            "success"
+        )
     return redirect(url_for("student.students"))

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request
 from models.student import Student
 from models.marks import Marks
+from models.subject import Subject
 from flask import redirect, url_for,flash
 from extensions import db
 from flask_login import current_user, login_required
@@ -74,6 +75,10 @@ def marks_page():
 
     students = Student.query.all()
 
+    subjects = Subject.query.order_by(
+        Subject.semester
+    ).all()
+
     dashboard_link = "/teacher-dashboard"
 
     if current_user.role == "Admin":
@@ -82,6 +87,7 @@ def marks_page():
     return render_template(
         "add_marks.html",
         students=students,
+        subjects=subjects,
         dashboard_link=dashboard_link
     )
 

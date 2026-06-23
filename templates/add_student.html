@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
-    <title>Add Student</title>
-
-    <link
+    
+    
+    <head>
+        
+        <title>Add Student</title>
+        
+        <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
-    >
-
-</head>
-
-<body class="bg-light">
-    <div class="container mt-3">
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-
+        >
+        
+        
+    </head>
+    
+    <body class="bg-light">
+        <div class="container mt-3">
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            
             {% if messages %}
-
-                {% for category, message in messages %}
-
-                    <div
-                        class="alert alert-{{ category }} alert-dismissible fade show"
-                        role="alert"
-                    >
-
-                        {{ message }}
+            
+            {% for category, message in messages %}
+            
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <div
+            class="alert alert-{{ category }} alert-dismissible fade show>
+            
+            {{ message }}
 
                         <button
                             type="button"
